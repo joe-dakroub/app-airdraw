@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
+import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig({
-  base: '/app-airdraw/',
+  base: "/app-airdraw/",
   build: {
-    target: 'esnext',
+    target: "esnext",
   },
   server: {
-    https: true,      // enables HTTPS
-    host: '0.0.0.0',  // allows access from other devices (e.g. iPhone)
+    https: true, // enables HTTPS
+    host: "0.0.0.0", // allows access from other devices (e.g. iPhone)
   },
   plugins: [mkcert()],
-})
+});
