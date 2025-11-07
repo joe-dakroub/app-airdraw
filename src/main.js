@@ -21,6 +21,7 @@ const sizeInput = document.getElementById("size");
 const smoothInput = document.getElementById("smooth");
 const opacityInput = document.getElementById("opacity");
 const eraserToggle = document.getElementById("eraserToggle");
+const randomToggle = document.getElementById("randomToggle");
 const clearBtn = document.getElementById("clear");
 const saveBtn = document.getElementById("save");
 const statusEl = document.getElementById("status");
@@ -481,4 +482,59 @@ requestAnimationFrame(() => {
   updateRangeBackground(sizeInput);
   updateRangeBackground(smoothInput);
   updateRangeBackground(opacityInput);
+});
+
+/* Random Parameter Changes */
+let randomInterval = null;
+
+function randomizeParameters() {
+  // Randomly decide which parameter(s) to change
+  const choices = Math.random();
+
+  if (choices < 0.25) {
+    // Random color
+    const r = Math.floor(Math.random() * 256)
+      .toString(16)
+      .padStart(2, "0");
+    const g = Math.floor(Math.random() * 256)
+      .toString(16)
+      .padStart(2, "0");
+    const b = Math.floor(Math.random() * 256)
+      .toString(16)
+      .padStart(2, "0");
+    colorInput.value = `#${r}${g}${b}`;
+  } else if (choices < 0.5) {
+    // Random size (between 5 and 70)
+    const newSize = Math.floor(Math.random() * 66) + 5;
+    sizeInput.value = newSize;
+    sizeOutput.textContent = newSize;
+    updateRangeBackground(sizeInput);
+  } else if (choices < 0.75) {
+    // Random smooth (between 0.1 and 0.9)
+    const newSmooth = (Math.random() * 0.8 + 0.1).toFixed(2);
+    smoothInput.value = newSmooth;
+    smoothOutput.textContent = newSmooth;
+    updateRangeBackground(smoothInput);
+  } else {
+    // Random opacity (between 0.3 and 1.0)
+    const newOpacity = (Math.random() * 0.7 + 0.3).toFixed(2);
+    opacityInput.value = newOpacity;
+    opacityOutput.textContent = newOpacity;
+    updateRangeBackground(opacityInput);
+  }
+}
+
+randomToggle.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    // Start randomizing - change every 1-3 seconds
+    randomInterval = setInterval(() => {
+      randomizeParameters();
+    }, Math.random() * 2000 + 1000);
+  } else {
+    // Stop randomizing
+    if (randomInterval) {
+      clearInterval(randomInterval);
+      randomInterval = null;
+    }
+  }
 });

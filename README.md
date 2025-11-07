@@ -23,7 +23,7 @@ Draw in the air using hand gestures tracked by your webcam.
 
 Built with:
 - [MediaPipe Hands](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker) for real-time hand tracking
-- WebGL for rendering
+- HTML5 Canvas for rendering
 - Vanilla JavaScript
 
 ## Demo
